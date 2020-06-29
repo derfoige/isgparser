@@ -1,4 +1,4 @@
-# Separser
+# isgparser
 Dies ist ein kleines Tool um die Werte eines Stiebel-Eltron ISG (Web) auzulesen und in eine Datenbank zu schreiben.
 
 Unterstützt werden derzeit

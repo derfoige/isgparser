@@ -18,8 +18,8 @@ grafana:
   restart: unless-stopped
 
 
-separser:
-  image: foige/separser
+isgparser:
+  image: foige/isgparser
   volumes:
     - ./config.cfg:/data/config.cfg
   links:
