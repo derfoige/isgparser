@@ -6,8 +6,7 @@ webpw		= PASSWORD
 [db]
 dbtype		= influxdb
 dbname		= lwzdb
-#dbhost		= db
-dbhost		= localhost
+dbhost		= db
 dbport		= 8086
 
 [general]
