@@ -1,0 +1,27 @@
+db:
+  image: influxdb
+  volumes:
+    - ./data/influx:/var/lib/influxdb
+  ports:
+    - 8086:8086
+  restart: unless-stopped
+
+grafana:
+  image: grafana/grafana:latest
+  volumes:
+    - ./data/grafana:/var/lib/grafana
+  links:
+    - db:db
+  ports:
+    - 3000:3000
+  user: "1000"
+  restart: unless-stopped
+
+
+separser:
+  image: foige/separser
+  volumes:
+    - ./config.cfg:/data/config.cfg
+  links:
+    - db:db
+  restart: unless-stopped

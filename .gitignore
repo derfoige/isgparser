@@ -1,0 +1,5 @@
+.vscode
+config.cfg
+data/influx/*
+data/grafana/*
+*.bak

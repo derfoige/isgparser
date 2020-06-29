@@ -1,0 +1,14 @@
+[web]
+baseurl 	= http://servicewelt
+webuser 	= USER
+webpw		= PASSWORD
+
+[db]
+dbtype		= influxdb
+dbname		= lwzdb
+#dbhost		= db
+dbhost		= localhost
+dbport		= 8086
+
+[general]
+interval	= 300
