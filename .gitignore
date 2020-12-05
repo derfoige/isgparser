@@ -3,3 +3,5 @@ config.cfg
 data/influx/*
 data/grafana/*
 *.bak
+test.py
+phantomjs
