@@ -81,7 +81,7 @@ def parsehtml(timestamp, baseurl, webuser, webpw, dbtype):
         if len(cells) > 0:
             key = cells[0].find(text=True)
             value = cells[1].find(text=True)
-            raumtemperatur[key] = float(value.split(' ')[0].replace(',', '.'))
+            raumtemperatur[key] = float(''.join((ch if ch in '0123456789.-,' else '') for ch in value.replace(',','.')))
     anlage_values_rt = [(raumtemperatur['RAUMISTTEMP. HK1'],
                          raumtemperatur['RAUMSOLLTEMP. HK1'],
                          raumtemperatur['RAUMFEUCHTE HK1'],
@@ -100,7 +100,7 @@ def parsehtml(timestamp, baseurl, webuser, webpw, dbtype):
         if len(cells) > 0:
             key = cells[0].find(text=True)
             value = cells[1].find(text=True)
-            heizen[key] = float(value.split(' ')[0].replace(',', '.'))
+            heizen[key] = float(''.join((ch if ch in '0123456789.-,' else '') for ch in value.replace(',','.')))
     anlage_values_hz = [(heizen['AUSSENTEMPERATUR'],
                          heizen['ISTWERT HK1'],
                          heizen['SOLLWERT HK1'],
@@ -122,7 +122,7 @@ def parsehtml(timestamp, baseurl, webuser, webpw, dbtype):
         if len(cells) > 0:
             key = cells[0].find(text=True)
             value = cells[1].find(text=True)
-            warmwasser[key] = float(value.split(' ')[0].replace(',', '.'))
+            warmwasser[key] = float(''.join((ch if ch in '0123456789.-,' else '') for ch in value.replace(',','.')))
     anlage_values_ww = [(warmwasser['WW-ISTTEMP.'],
                          warmwasser['WW-SOLLTEMP.'],
                          timestamp)]
@@ -137,7 +137,7 @@ def parsehtml(timestamp, baseurl, webuser, webpw, dbtype):
         if len(cells) > 0:
             key = cells[0].find(text=True)
             value = cells[1].find(text=True)
-            lueften[key] = float(value.split(' ')[0].replace(',', '.'))
+            lueften[key] = float(''.join((ch if ch in '0123456789.-,' else '') for ch in value.replace(',','.')))
     anlage_values_lf = [(lueften['ZULUFT IST L\xdcFTERDREHZAHL'],
                      lueften['ZULUFT SOLL VOLUMENSTROM'],
                      lueften['ABLUFT IST L\xdcFTERDREHZAHL'],
@@ -155,7 +155,7 @@ def parsehtml(timestamp, baseurl, webuser, webpw, dbtype):
         if len(cells) > 0:
             key = cells[0].find(text=True)
             value = cells[1].find(text=True)
-            waermeerzeuger[key] = float(value.split(' ')[0].replace(',', '.'))
+            waermeerzeuger[key] = float(''.join((ch if ch in '0123456789.-,' else '') for ch in value.replace(',','.')))
     anlage_values_we = [(waermeerzeuger['HEIZSTUFE'],
                          timestamp)]
 
@@ -188,7 +188,7 @@ def parsehtml(timestamp, baseurl, webuser, webpw, dbtype):
         if len(cells) > 0:
             key = cells[0].find(text=True)
             value = cells[1].find(text=True)
-            prozesswerte[key] = float(value.split(' ')[0].replace(',', '.'))
+            prozesswerte[key] = float(''.join((ch if ch in '0123456789.-,' else '') for ch in value.replace(',','.')))
     wp_values_pz = [(prozesswerte['HEISSGASTEMP.'],
                     prozesswerte['HOCHDRUCK'],
                     prozesswerte['NIEDERDRUCK'],
@@ -208,7 +208,7 @@ def parsehtml(timestamp, baseurl, webuser, webpw, dbtype):
         if len(cells) > 0:
             key = cells[0].find(text=True)
             value = cells[1].find(text=True)
-            waermemengen[key] = float(value.split(' ')[0].replace(',', '.'))
+            waermemengen[key] = float(''.join((ch if ch in '0123456789.-,' else '') for ch in value.replace(',','.')))
     wp_values_wm = [(waermemengen['WM HEIZEN TAG'],
                  waermemengen['WM HEIZEN SUMME'],
                  waermemengen['WM WW TAG'],
@@ -230,7 +230,7 @@ def parsehtml(timestamp, baseurl, webuser, webpw, dbtype):
         if len(cells) > 0:
             key = cells[0].find(text=True)
             value = cells[1].find(text=True)
-            leistungsaufnahme[key] = float(value.split(' ')[0].replace(',', '.'))
+            leistungsaufnahme[key] = float(''.join((ch if ch in '0123456789.-,' else '') for ch in value.replace(',','.')))
     wp_values_la = [(leistungsaufnahme['P HEIZUNG TAG'],
                  leistungsaufnahme['P HEIZUNG SUMME'],
                  leistungsaufnahme['P WW TAG'],
@@ -248,7 +248,7 @@ def parsehtml(timestamp, baseurl, webuser, webpw, dbtype):
         if len(cells) > 0:
             key = cells[0].find(text=True)
             value = cells[1].find(text=True)
-            laufzeiten[key] = int(value.split(' ')[0].replace(',', '.'))
+            laufzeiten[key] = int(''.join((ch if ch in '0123456789.-,' else '') for ch in value.replace(',','.')))
     wp_values_lz = [(laufzeiten['VERDICHTER HEIZEN'],
                      laufzeiten['VERDICHTER WW'],
                      laufzeiten['ELEKTR. NE HEIZEN'],
