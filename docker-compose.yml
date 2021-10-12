@@ -1,27 +1,36 @@
-db:
-  image: influxdb
-  volumes:
-    - ./data/influx:/var/lib/influxdb
-  ports:
-    - 8086:8086
-  restart: unless-stopped
+version: "3.3"
 
-grafana:
-  image: grafana/grafana:latest
-  volumes:
-    - ./data/grafana:/var/lib/grafana
-  links:
-    - db:db
-  ports:
-    - 3000:3000
-  user: "1000"
-  restart: unless-stopped
+services:
+  db:
+    image: influxdb:1.8.2
+    container_name: db
+    volumes:
+      - ./data/influx:/var/lib/influxdb
+    ports:
+      - 8086:8086
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    volumes:
+      - ./data/grafana:/var/lib/grafana
+        #links:
+        # - db:db
+    ports:
+      - 3000:3000
+    user: "1000"
+    extra_hosts:
+    - "db:192.168.1.254"
+    restart: unless-stopped
 
 
-isgparser:
-  image: foige/isgparser
-  volumes:
-    - ./config.cfg:/data/config.cfg
-  links:
-    - db:db
-  restart: unless-stopped
+  isgparser:
+    image: foige/isgparser:1.2
+    volumes:
+      - ./config.cfg:/data/config.cfg
+        #links:
+        #- db:db
+    extra_hosts:
+    - "db:192.168.1.254"
+    restart: unless-stopped
+

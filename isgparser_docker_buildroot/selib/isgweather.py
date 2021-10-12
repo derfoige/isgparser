@@ -42,7 +42,7 @@ def get_weather(url, apikey, stationid):
     """
     metrics = {}
     ret = {}
-    response = urlopen(f"http://{url}?apiKey={apikey}&stationId={stationid}&format=json&units=m")
+    response = urlopen(f"http://{url}?apiKey={apikey}&stationId={stationid}&format=json&numericPrecision=decimal&units=m")
     data = json.loads(response.read())
     data2 = data["observations"][0]
     for key in INTERESTING_ITEMS:
