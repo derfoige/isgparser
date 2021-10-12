@@ -11,3 +11,9 @@ dbport		= 8086
 
 [general]
 interval	= 300
+
+[weather]
+wu_url = api.weather.com/v2/pws/observations/current
+wu_apikey = XXXXXX
+wu_stationid = XXXXXXXX
+wu_enabled = true

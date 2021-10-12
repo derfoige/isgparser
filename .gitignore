@@ -5,3 +5,4 @@ data/grafana/*
 *.bak
 test.py
 phantomjs
+__pycache__

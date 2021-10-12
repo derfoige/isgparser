@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from selib import parser, database_influx, database_sqlite
+from selib import parser, database_influx, database_sqlite, isgweather
 import time
 from configparser import ConfigParser
 from datetime import datetime
@@ -45,6 +45,7 @@ def sqlite_parser():
 
 def influx_parser():
     while True:
+        # Get Values from LWZ
         values = parser.parsehtml('', baseurl, webuser, webpw, dbtype=dbtype)
         points = []
         jetzt = time.strftime('%Y-%m-%dT%H:%M:%SZ')
@@ -62,6 +63,31 @@ def influx_parser():
                 ]
                 points += json_body
         database_influx.main(host=dbhost, port=dbport, dbname=dbname, json_body=points)
+
+        # Get Values from WeatherUnderground
+        # Todo: Run this in parallel to utilize retry logic
+        # currently retry is ignored
+        if wu_enabled:
+            try:          
+                values_wu = isgweather.get_weather(wu_url, wu_apikey, wu_stationid)
+                points_wu = []
+                for category in list(values_wu.keys()):
+                    if len(values_wu[category]) > 0:
+                        json_body_wu = [
+                            {
+                                "measurement": category,
+                                "tags": {
+                                    "Kategorie": category
+                                },
+                                "time": jetzt,
+                                "fields": values_wu[category]
+                            }
+                        ]
+                        points_wu += json_body_wu
+                database_influx.main(host=dbhost, port=dbport, dbname=dbname, json_body=points_wu)
+            except:
+                print("Something is wrong with the WU API")
+        
         time.sleep(float(interval))
 
 if __name__ == '__main__':
@@ -77,6 +103,10 @@ if __name__ == '__main__':
         dbport = config.get('db', 'dbport')
         dbhost = config.get('db', 'dbhost')
         interval = config.get('general', 'interval')
+        wu_url = config.get('weather', 'wu_url')
+        wu_apikey = config.get('weather', 'wu_apikey')
+        wu_stationid = config.get('weather', 'wu_stationid')
+        wu_enabled = config.get('weather', 'wu_enabled')
     except:
         print("ERROR: Fehler beim einlesen der Config")
         exit(1)
