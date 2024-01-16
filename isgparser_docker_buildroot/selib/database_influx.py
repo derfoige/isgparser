@@ -9,7 +9,7 @@ def main(host, port, dbname, json_body, influxuser, influxpw):
     """
     query = 'select VORLAUFTEMPERATUR from "LWZ Logging";'
 
-    client = InfluxDBClient(host, port, dbname, influxuser, influxpw)
+    client = InfluxDBClient(host=host, port=port, database=dbname, username=influxuser, password=influxpw)
 
     # Script for creating DB 
     # print("Create database: " + dbname)
