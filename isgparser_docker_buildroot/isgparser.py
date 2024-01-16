@@ -63,7 +63,7 @@ def influx_parser():
                     }
                 ]
                 points += json_body
-        database_influx.main(host=dbhost, port=dbport, dbname=dbname, json_body=points)
+        database_influx.main(host=dbhost, port=dbport, dbname=dbname, json_body=points, influxpw=dbpw, influxuser=dbuser)
 
         # Get Values from WeatherUnderground
         # Todo: Run this in parallel to utilize retry logic
@@ -117,6 +117,8 @@ if __name__ == '__main__':
         dbtype = os.environ.get('SE_DBTYPE','influxdb')
         dbport = os.environ.get('SE_DBPORT','8086')
         dbhost = os.environ.get('SE_DBHOST','localhost')
+        dbuser = os.environ.get('SE_DBUSER','isgparser')
+        dbpw = os.environ.get('SE_DBPW','PASSWORD')
         interval = os.environ.get('SE_INTERVAL','300')
         wu_url = os.environ.get('SE_WU_URL','api.weather.com/v2/pws/observations/current')
         wu_apikey = os.environ.get('SE_WU_APIKEY','XXXXXXXXXXXX')

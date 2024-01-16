@@ -2,14 +2,14 @@
 from influxdb import InfluxDBClient
 
 
-def main(host, port, dbname, json_body):
+def main(host, port, dbname, json_body, influxuser, influxpw):
     """
 
     :rtype: object
     """
     query = 'select VORLAUFTEMPERATUR from "LWZ Logging";'
 
-    client = InfluxDBClient(host, port, dbname)
+    client = InfluxDBClient(host, port, dbname, influxuser, influxpw)
 
     # Script for creating DB 
     # print("Create database: " + dbname)
