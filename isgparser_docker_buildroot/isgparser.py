@@ -85,7 +85,7 @@ def influx_parser():
                             }
                         ]
                         points_wu += json_body_wu
-                database_influx.main(host=dbhost, port=dbport, dbname=dbname, json_body=points_wu)
+                database_influx.main(host=dbhost, port=dbport, dbname=dbname, json_body=points_wu, influxpw=dbpw, influxuser=dbuser)
             except:
                 print("Something is wrong with the WU API")
         
