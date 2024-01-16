@@ -4,6 +4,7 @@ import time
 from configparser import ConfigParser
 from datetime import datetime
 import os.path
+from os import environ
 import sqlite3 as lite
 
 
@@ -108,7 +109,21 @@ if __name__ == '__main__':
         wu_stationid = config.get('weather', 'wu_stationid')
         wu_enabled = config.get('weather', 'wu_enabled')
     except:
-        print("ERROR: Fehler beim einlesen der Config")
+        print("INFO: Keine Config gefunden. Versuche mit ENV.")
+        baseurl = os.environ.get('SE_BASEURL','http://servicewelt')
+        webuser = os.environ.get('SE_WEBUSER','admin')
+        webpw = os.environ.get('SE_WEBPW','password')
+        dbname = os.environ.get('SE_DBNAME','isg')
+        dbtype = os.environ.get('SE_DBTYPE','influxdb')
+        dbport = os.environ.get('SE_DBPORT','8086')
+        dbhost = os.environ.get('SE_DBHOST','localhost')
+        interval = os.environ.get('SE_INTERVAL','300')
+        wu_url = os.environ.get('SE_WU_URL','api.weather.com/v2/pws/observations/current')
+        wu_apikey = os.environ.get('SE_WU_APIKEY','XXXXXXXXXXXX')
+        wu_stationid = os.environ.get('SE_WU_STATIONID','XXXXXXXXXXXX')
+        wu_enabled = os.environ.get('SE_WU_ENABLED','false')
+    else:
+        print("ERROR: Keine Config gefunden")
         exit(1)
 
     if dbtype == 'influxdb':
