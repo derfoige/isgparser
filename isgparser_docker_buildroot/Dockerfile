@@ -4,5 +4,5 @@ ADD isgparser.py /data
 ADD config.cfg.template /data
 ADD requirements.txt /data
 WORKDIR /data
-RUN pip install -r requirements.txt && mv config.cfg.template config.cfg
+RUN pip install -r requirements.txt
 CMD python /data/isgparser.py
